@@ -1,3 +1,6 @@
+;;;; init.el --- Summary
+;;;; Commentary:
+;;;; Code:
 ;; Turn off mouse interface early in startup to avoid momentary display
 
 ;; Added by Package.el.  This must come before configurations of
@@ -6,11 +9,30 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+(require 'flycheck-color-mode-line)
+
+(require 'powerline)
+(powerline-default-theme)
+
+(eval-after-load "flycheck"
+  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+(package-install 'omnisharp)
+(add-hook 'csharp-mode-hook 'omnisharp-mode)
+(eval-after-load
+    'company
+  '(add-to-list 'company-backends 'company-omnisharp))
+(add-hook 'csharp-mode-hook #'flycheck-mode)
+
+(add-hook 'csharp-mode-hook #'company-mode)
+
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-(package-initialize)
 
 ;; Remove security vulnerability
 (eval-after-load "enriched"

@@ -23,3 +23,6 @@ site-lisp/adventur-mode
 /projectile.cache
 /transient/history.el
 /transient/values.el
+/server/server
+/.cache
+/smex-items
